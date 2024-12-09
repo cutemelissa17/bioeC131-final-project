@@ -178,7 +178,7 @@ tabix lat_regions.bed.gz
 ```
 jbrowse add-track lat_regions.bed.gz --name "LAT Regions" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-## 5.3 Add Flanking Genes
+### 5.3 Add Flanking Genes
 Create a BED file for RL1 and RL2 flanking genes:
 ```
 echo -e "NC_001806.2\t120000\t121000\tICP34.5" > rl_genes.bed
@@ -206,7 +206,7 @@ bgzip -f lat_regions_with_metadata.bed
 tabix -f lat_regions_with_metadata.bed.gz
 ```
 
-## 6.2 Proximity Analysis Using Bedtools:
+### 6.2 Proximity Analysis Using Bedtools:
 ```
 bedtools closest -a lat_regions_with_metadata.bed.gz -b rl_genes_sorted.bed.gz > lat_gene_proximity.bed
 
@@ -215,19 +215,19 @@ tabix -f lat_gene_proximity.bed.gz
 
 jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-### 7 RNA Structure Analysis with ViennaRNA
+## 7 RNA Structure Analysis with ViennaRNA
 
-## 7.1 Install ViennaRNA and Bedtools
+### 7.1 Install ViennaRNA and Bedtools
 ```
 sudo apt-get update
 sudo apt-get install vienna-rna bedtools
 ```
-## 7.2 Extract Sequences from BED File
+### 7.2 Extract Sequences from BED File
 ```
 bedtools getfasta -fi /var/www/html/jbrowse2/herpesvirus1.fa -bed /var/www/html/jbrowse2/lat_regions_updated.bed -fo lat_regions_sequences.fasta
 ```
 
-## 7.3 #Preparing Data for RNA Structure Prediction
+### 7.3 #Preparing Data for RNA Structure Prediction
 ```
 RNAfold < lat_regions_sequences.fasta > lat_regions_structure.txt
 Visualizing the RNA Structure Using the RNAfold Web Server
