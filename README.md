@@ -133,9 +133,9 @@ sudo chown -R $(whoami) $APACHE_ROOT/jbrowse2
 ### 3.6. Test your jbrowse install
 In your browser, now type in `http://yourhost/jbrowse2/`, where yourhost is either localhost or the IP address from earlier. Now you should see the words "**It worked!**" with a green box underneath saying "JBrowse 2 is installed." with some additional details. 
 
-## 4. Load and process test data
+## 4. Load and process data
 ### 4.1. Download and process reference genome
-Make sure you are in the temporary folder you created, then download the human genome in fasta format. This is the biggest file you'll be downloading, and may take 30 min or so on AWS with the lowest tier of download speeds.
+Make sure you are in the temporary folder you created, then download the HSV-1 genome in fasta format. This is the biggest file you'll be downloading, and may take 30 min or so on AWS with the lowest tier of download speeds.
 
 ```
 wget -O herpesvirus_dataset.zip "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_000859985.2/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED"
