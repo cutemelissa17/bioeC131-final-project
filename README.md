@@ -242,7 +242,7 @@ This command generates a FASTA file with the sequences for the LAT regions, whic
 bedtools getfasta -fi /var/www/html/jbrowse2/herpesvirus1.fa -bed /var/www/html/jbrowse2/lat_regions_updated.bed -fo lat_regions_sequences.fasta
 ```
 
-### 7.3 #Preparing Data for RNA Structure Prediction
+### 7.3 Preparing Data for RNA Structure Prediction
 ```
 RNAfold < lat_regions_sequences.fasta > lat_regions_structure.txt
 Visualizing the RNA Structure Using the RNAfold Web Server
