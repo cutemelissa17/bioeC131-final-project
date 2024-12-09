@@ -197,8 +197,8 @@ Add track to jbrowse
 ```
 jbrowse add-track rl_genes_sorted.bed.gz --name "Flanking Genes (ICP34.5 & ICP0)" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-### 6 LAT-Gene Proximity Final Track
-## 6.1. Generate the LAT Regions File:
+## 6 LAT-Gene Proximity Final Track
+### 6.1. Generate the LAT Regions File:
 
 ```
 echo -e "NC_001806.2\t1\t7569\tLAT_region_1\tregulatory_role=latency_promotion" > lat_regions_with_metadata.bed
