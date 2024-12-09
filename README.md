@@ -1,6 +1,6 @@
 # BioE C131 Final Project
 - Team Name: M.E.M 
-- Team Members: Ekta Jaswal, Maria Isabella Solorzano, Melissa Theodorus
+- Team Members: Ekta Jaswal, Maria Solorzano, Melissa Theodorus
   - Maria Solorzano: Completed written report. Helped brainstorm ideas for project.
   - Melissa Theodorus: Completed the GitHub READMe.md, researched and brainstormed ideas for selecting the goal of the project.
   - Ekta Jaswal: Coding and Troubleshooting the Jbrowse website with all tracks and data, creating RNA structure analysis, and documenting code.
@@ -237,6 +237,7 @@ sudo apt-get update
 sudo apt-get install vienna-rna bedtools
 ```
 ### 7.2 Extract Sequences from BED File
+This command generates a FASTA file with the sequences for the LAT regions, which will be used for RNA secondary structure prediction.
 ```
 bedtools getfasta -fi /var/www/html/jbrowse2/herpesvirus1.fa -bed /var/www/html/jbrowse2/lat_regions_updated.bed -fo lat_regions_sequences.fasta
 ```
@@ -251,3 +252,5 @@ Open `http://yourhost/jbrowse2/` again in your web browser. There should now be 
 
 You should be able to see the image of MFE structure with base pair probabilities, such as the one below.
 ![MFE Structure](MFE_structure.png)
+
+The proximity analysis helps determine how close LAT regions are to nearby genes like ICP34.5 (RL1) and ICP0 (RL2), which are involved in neurovirulence and reactivation. This can provide information into potential regulatory interactions, co-regulation, or overlapping functionality between these non-coding LAT regions and protein-coding genes, contributing to understanding the molecular mechanisms of latency and reactivation in herpesvirus.
