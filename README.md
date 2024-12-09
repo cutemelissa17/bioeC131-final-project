@@ -138,13 +138,98 @@ In your browser, now type in `http://yourhost/jbrowse2/`, where yourhost is eith
 Make sure you are in the temporary folder you created, then download the human genome in fasta format. This is the biggest file you'll be downloading, and may take 30 min or so on AWS with the lowest tier of download speeds.
 
 ```
-export FASTA_ROOT=https://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens
-wget $FASTA_ROOT/dna/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+wget -O herpesvirus_dataset.zip "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_000859985.2/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED"
 ```
-
-Unzip the gzipped reference genome, rename it, and index it. This will allow jbrowse to rapidly access any part of the reference just by coordinate.
+### 4.2 Unzip the gzipped reference genome, rename it, and index it. This will allow jbrowse to rapidly access any part of the reference just by coordinate.
 
 ```
+unzip herpesvirus_dataset.zip -d herpesvirus_data
+cd herpesvirus_data
+```
+### 4.3 Rename the genome file and create an index:
+```
+mv ./ncbi_dataset/data/GCF_000859985.2/GCF_000859985.2_ViralProj15217_genomic.fna herpesvirus1.fa
+samtools faidx herpesvirus1.fa
+```
+### 4.4 Add Genome and Tracks to JBrowse2
+```
+jbrowse add-assembly herpesvirus1.fa --out $APACHE_ROOT/jbrowse2 --load copy
+```
+### 4.5 Sort, compress, and index the GFF file:
+```
+jbrowse sort-gff ./ncbi_dataset/data/GCF_000859985.2/genomic.gff > herpesvirus1_sorted.gff
+bgzip herpesvirus1_sorted.gff
+tabix herpesvirus1_sorted.gff.gz
+```
+### 4.6 Add the annotation track to JBrowse2:
+```
+jbrowse add-track herpesvirus1_sorted.gff.gz --name "Herpesvirus Annotations" --out $APACHE_ROOT/jbrowse2 --load copy
+```
 
+## 5. Explore LAT and Flanking Regions
+### 5.1 Create a BED file for LAT regions:
+```
+echo -e "NC_001806.2\t1\t7569\tLAT_region_1" > lat_regions.bed
+echo -e "NC_001806.2\t118777\t127151\tLAT_region_2" >> lat_regions.bed
+bgzip lat_regions.bed
+tabix lat_regions.bed.gz
+```
+### 5.2 Add LAT regions as a track:
+```
+jbrowse add-track lat_regions.bed.gz --name "LAT Regions" --out $APACHE_ROOT/jbrowse2 --load copy
+```
+## 5.3 Add Flanking Genes
+Create a BED file for RL1 and RL2 flanking genes:
+```
+echo -e "NC_001806.2\t120000\t121000\tICP34.5" > rl_genes.bed
+echo -e "NC_001806.2\t118000\t119000\tICP0" >> rl_genes.bed
+```
+### 5.4 Sort the BED File:
+```
+sort -k1,1 -k2,2n rl_genes.bed > rl_genes_sorted.bed
+```
+Compress and Index the BED File
+```
+bgzip -f rl_genes_sorted.bed
+tabix -f rl_genes_sorted.bed.gz
+```
+Add track to jbrowse
+```
+jbrowse add-track rl_genes_sorted.bed.gz --name "Flanking Genes (ICP34.5 & ICP0)" --out $APACHE_ROOT/jbrowse2 --load copy
+```
+### 6 LAT-Gene Proximity Final Track
+## 6.1. Generate the LAT Regions File:
+
+```
+echo -e "NC_001806.2\t1\t7569\tLAT_region_1\tregulatory_role=latency_promotion" > lat_regions_with_metadata.bed
+bgzip -f lat_regions_with_metadata.bed
+tabix -f lat_regions_with_metadata.bed.gz
+```
+
+## 6.2 Proximity Analysis Using Bedtools:
+```
+bedtools closest -a lat_regions_with_metadata.bed.gz -b rl_genes_sorted.bed.gz > lat_gene_proximity.bed
+
+bgzip -f lat_gene_proximity.bed
+tabix -f lat_gene_proximity.bed.gz
+
+jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --out $APACHE_ROOT/jbrowse2 --load copy
+```
+### 7 NA Structure Analysis with ViennaRNA
+
+Install ViennaRNA and Bedtools
+```
+sudo apt-get update
+sudo apt-get install vienna-rna bedtools
+```
+Extract Sequences from BED File
+```
+bedtools getfasta -fi /var/www/html/jbrowse2/herpesvirus1.fa -bed /var/www/html/jbrowse2/lat_regions_updated.bed -fo lat_regions_sequences.fasta
+```
+
+#Preparing Data for RNA Structure Prediction
+RNAfold < lat_regions_sequences.fasta > lat_regions_structure.txt
+Visualizing the RNA Structure Using the RNAfold Web Server
+Result:  http://rna.tbi.univie.ac.at//cgi-bin/RNAWebSuite/RNAfold.cgi?PAGE=3&ID=2Dum_KBGoe
 
 
