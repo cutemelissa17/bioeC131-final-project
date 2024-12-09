@@ -1,6 +1,10 @@
 # BioE C131 Final Project
 - Team Name: M.E.M 
-- Team Members: Ekta Jaswal, Maria Isabella Solorzano, Melissa Theodorus  
+- Team Members: Ekta Jaswal, Maria Isabella Solorzano, Melissa Theodorus
+  - Maria Solorzano: Completed written report. Helped brainstorm ideas for project.
+  - Melissa Theodorus: Completed the GitHub READMe.md, researched and brainstormed ideas for selecting the goal of the project.
+  - Ekta Jaswal: Coding and Troubleshooting the Jbrowse website with all tracks and data, creating RNA structure analysis, and documenting code.
+- Working website: http://3.82.198.122/jbrowse2/
 - Viral Genome Family: HerpesVirus 
 
 ## Overview
@@ -52,6 +56,7 @@ node -v
 ```
 
 If Node.js is not installed, install it. 
+
 ### 2.2. @jbrowse/cli
 Run the following commands in your shell. This uses the Node.js package manager to download the latest stable version of the jbrowse command line tool, then prints out its version. This should work for both macOS and Linux.
 
@@ -197,7 +202,7 @@ Add track to jbrowse
 ```
 jbrowse add-track rl_genes_sorted.bed.gz --name "Flanking Genes (ICP34.5 & ICP0)" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-## 6 LAT-Gene Proximity Final Track
+## 6. LAT-Gene Proximity Final Track
 ### 6.1. Generate the LAT Regions File:
 
 ```
@@ -215,7 +220,7 @@ tabix -f lat_gene_proximity.bed.gz
 
 jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-## 7 RNA Structure Analysis with ViennaRNA
+## 7. RNA Structure Analysis with ViennaRNA
 
 ### 7.1 Install ViennaRNA and Bedtools
 ```
