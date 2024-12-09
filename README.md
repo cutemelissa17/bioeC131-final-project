@@ -240,5 +240,5 @@ Result:  http://rna.tbi.univie.ac.at//cgi-bin/RNAWebSuite/RNAfold.cgi?PAGE=3&ID=
 ```
 Open `http://yourhost/jbrowse2/` again in your web browser. There should now be several options in the main menu. Follow the guide in the "Launch the JBrowse 2 application and search for a gene in the linear genome view" section of https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/cpz1.1120 to navigate to the gene search and try browsing a few genes.
 
-# Submission
-Commit your read file with the prompts answered, then push to your remote repository and provide the link to your repo in the bCourses submission form.
+You should be able to see the image of MFE structure with base pair probabilities, such as the one below.
+![MFE Structure](MFE_structure.png)
