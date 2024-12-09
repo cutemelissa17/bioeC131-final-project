@@ -217,7 +217,7 @@ jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --
 ```
 ### 7 RNA Structure Analysis with ViennaRNA
 
-##7.1 Install ViennaRNA and Bedtools
+## 7.1 Install ViennaRNA and Bedtools
 ```
 sudo apt-get update
 sudo apt-get install vienna-rna bedtools
