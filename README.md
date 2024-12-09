@@ -145,7 +145,10 @@ Make sure you are in the temporary folder you created, then download the HSV-1 g
 ```
 wget -O herpesvirus_dataset.zip "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_000859985.2/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED"
 ```
-### 4.2 Unzip the gzipped reference genome, rename it, and index it. This will allow jbrowse to rapidly access any part of the reference just by coordinate.
+From there, you should be able to see the herpesvirus reference genome.
+![Herpes_Genome](Herpes_Genome.png)
+
+### 4.2 Unzip the gzipped genome, rename it, and index it. This will allow jbrowse to rapidly access any part of it just by coordinate.
 
 ```
 unzip herpesvirus_dataset.zip -d herpesvirus_data
@@ -171,8 +174,8 @@ tabix herpesvirus1_sorted.gff.gz
 jbrowse add-track herpesvirus1_sorted.gff.gz --name "Herpesvirus Annotations" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
 
-From there, you should be able to seethe herpesvirus with annotations.
-
+From there, you should be able to see the herpesvirus with annotations.
+![Annotations](Annotations.png)
 
 ## 5. Explore LAT and Flanking Regions
 ### 5.1 Create a BED file for LAT regions:
@@ -186,6 +189,7 @@ tabix lat_regions.bed.gz
 ```
 jbrowse add-track lat_regions.bed.gz --name "LAT Regions" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
+
 ### 5.3 Add Flanking Genes
 Create a BED file for RL1 and RL2 flanking genes:
 ```
@@ -205,6 +209,7 @@ Add track to jbrowse
 ```
 jbrowse add-track rl_genes_sorted.bed.gz --name "Flanking Genes (ICP34.5 & ICP0)" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
+![LAT_genes](LAT_genes.png)
 ## 6. LAT-Gene Proximity Final Track
 ### 6.1. Generate the LAT Regions File:
 
@@ -213,7 +218,6 @@ echo -e "NC_001806.2\t1\t7569\tLAT_region_1\tregulatory_role=latency_promotion" 
 bgzip -f lat_regions_with_metadata.bed
 tabix -f lat_regions_with_metadata.bed.gz
 ```
-
 ### 6.2 Proximity Analysis Using Bedtools:
 ```
 bedtools closest -a lat_regions_with_metadata.bed.gz -b rl_genes_sorted.bed.gz > lat_gene_proximity.bed
@@ -223,6 +227,8 @@ tabix -f lat_gene_proximity.bed.gz
 
 jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
+![Flanking_gene1](Flanking_gene1.png)
+![Flanking_gene2](Flanking_gene2.png)
 ## 7. RNA Structure Analysis with ViennaRNA
 
 ### 7.1 Install ViennaRNA and Bedtools
