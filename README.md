@@ -215,21 +215,22 @@ tabix -f lat_gene_proximity.bed.gz
 
 jbrowse add-track lat_gene_proximity.bed.gz --name "LAT-Gene Proximity Final" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
-### 7 NA Structure Analysis with ViennaRNA
+### 7 RNA Structure Analysis with ViennaRNA
 
-Install ViennaRNA and Bedtools
+##7.1 Install ViennaRNA and Bedtools
 ```
 sudo apt-get update
 sudo apt-get install vienna-rna bedtools
 ```
-Extract Sequences from BED File
+## 7.2 Extract Sequences from BED File
 ```
 bedtools getfasta -fi /var/www/html/jbrowse2/herpesvirus1.fa -bed /var/www/html/jbrowse2/lat_regions_updated.bed -fo lat_regions_sequences.fasta
 ```
 
-#Preparing Data for RNA Structure Prediction
+## 7.3 #Preparing Data for RNA Structure Prediction
+```
 RNAfold < lat_regions_sequences.fasta > lat_regions_structure.txt
 Visualizing the RNA Structure Using the RNAfold Web Server
 Result:  http://rna.tbi.univie.ac.at//cgi-bin/RNAWebSuite/RNAfold.cgi?PAGE=3&ID=2Dum_KBGoe
-
+```
 
