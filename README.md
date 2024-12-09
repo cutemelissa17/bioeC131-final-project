@@ -171,6 +171,9 @@ tabix herpesvirus1_sorted.gff.gz
 jbrowse add-track herpesvirus1_sorted.gff.gz --name "Herpesvirus Annotations" --out $APACHE_ROOT/jbrowse2 --load copy
 ```
 
+From there, you should be able to seethe herpesvirus with annotations.
+
+
 ## 5. Explore LAT and Flanking Regions
 ### 5.1 Create a BED file for LAT regions:
 ```
